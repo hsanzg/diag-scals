@@ -387,7 +387,7 @@ ds_sol ds_newt_crit3(ds_problem pr) {
         __m256d y_max_mults = _mm256_setzero_pd(),
                 y_min_mults = _mm256_set1_pd(INFINITY);
         for (j = 0; j < DS_ROUND_DOWN_TO_VEC_LANE_COUNT(pr.n); j += DS_VEC_LANE_COUNT) {
-            __m256d y_prevs = _mm256_load_pd(&y_prev[j]);
+            __m256d y_prevs = _mm256_loadu_pd(&y_prev[j]);
             // `sol.y` is contiguous to `sol.x`, so it is not aligned to
             // the nearest `DS_VEC_LANE_COUNT`-byte boundary.
             __m256d y_mults = _mm256_div_pd(_mm256_loadu_pd(&sol.y[j]), y_prevs);
