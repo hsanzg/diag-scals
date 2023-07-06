@@ -1,0 +1,33 @@
+name: Test and generate documentation of C implementation
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  DOCS_OUT_PATH: c/build/html
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Install CMake, Ninja and Doxygen
+        run: sudo apt-get install -y cmake doxygen graphviz
+      - name: Create build system
+        working-directory: c
+        run: cmake -DCMAKE_BUILD_TYPE=Release -Bbuild
+      - name: Test implementation
+        working-directory: c
+        run: ctest --test-dir build -V
+      - name: Generate documentation
+        working-directory: c
+        run: cmake --build build --parallel --target docs_diag_scals
+      - name: Ensure pages with underscores work
+        run: touch "$DOCS_OUT_PATH/.nojekyll"
+      - name: Deploy to GitHub
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: "$DOCS_OUT_PATH"
