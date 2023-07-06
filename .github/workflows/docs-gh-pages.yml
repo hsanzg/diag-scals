@@ -14,11 +14,11 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
-      - name: Install CMake, Ninja and Doxygen
-        run: sudo apt-get install -y cmake doxygen graphviz
+      - name: Install CMake, Ninja, Intel MKL and Doxygen
+        run: sudo apt-get install -y cmake intel-mkl doxygen graphviz
       - name: Create build system
         working-directory: c
-        run: cmake -DCMAKE_BUILD_TYPE=Release -Bbuild
+        run: cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_BENCHMARKING=OFF -Bbuild
       - name: Test implementation
         working-directory: c
         run: ctest --test-dir build -V
