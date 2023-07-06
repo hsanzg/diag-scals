@@ -15,7 +15,9 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
       - name: Install CMake, Ninja, Intel MKL and Doxygen
-        run: sudo apt-get install -y cmake intel-mkl doxygen graphviz
+        run: |
+          sudo apt-get install -y cmake intel-mkl doxygen graphviz
+          source /opt/intel/oneapi/setvars.sh intel64
       - name: Create build system
         working-directory: c
         run: cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_BENCHMARKING=OFF -Bbuild
