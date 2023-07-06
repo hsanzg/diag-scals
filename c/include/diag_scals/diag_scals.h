@@ -1,3 +1,8 @@
+/**
+ * @file diag_scals.h
+ *
+ * This header defines the diagonal scaling structures and methods.
+ */
 #ifndef DIAGONALSCALINGS_DIAG_SCALS_H
 #define DIAGONALSCALINGS_DIAG_SCALS_H
 #ifdef __cplusplus
@@ -7,7 +12,6 @@ extern "C" {
 #include <stddef.h> // size_t
 #include <stdint.h> // uint32_t
 #include <stdbool.h>
-
 
 // The diagonal scaling problem.
 
@@ -83,7 +87,7 @@ void ds_work_area_free(void);
 ///
 /// # Implementation
 /// The explicit variant of the Sinkhorn--Knopp-like algorithm, devised by
-/// J. Kruithof; see the paper [_Properties of Kruithof's Projection Method_]()
+/// J. Kruithof; see the paper [_Properties of Kruithof's Projection Method_](https://onlinelibrary.wiley.com/doi/abs/10.1002/j.1538-7305.1979.tb02231.x)
 /// by R. S. Krupp for details. The convergence properties in the doubly stochastic
 /// case were analyzed by R. Sinkhorn and P. Knopp in [_Concerning nonnegative matrices and doubly stochastic matrices_](https://projecteuclid.org/journals/pacific-journal-of-mathematics/volume-21/issue-2/Concerning-nonnegative-matrices-and-doubly-stochastic-matrices/pjm/1102992505.full).
 ///
@@ -98,7 +102,7 @@ ds_sol ds_expl_crit1(ds_problem);
 ///
 /// # Implementation
 /// The explicit variant of the Sinkhorn--Knopp-like algorithm, devised by
-/// J. Kruithof; see the paper [_Properties of Kruithof's Projection Method_]()
+/// J. Kruithof; see the paper [_Properties of Kruithof's Projection Method_](https://onlinelibrary.wiley.com/doi/abs/10.1002/j.1538-7305.1979.tb02231.x)
 /// by R. S. Krupp for details. The convergence properties in the doubly stochastic
 /// case were analyzed by R. Sinkhorn and P. Knopp in [_Concerning nonnegative matrices and doubly stochastic matrices_](https://projecteuclid.org/journals/pacific-journal-of-mathematics/volume-21/issue-2/Concerning-nonnegative-matrices-and-doubly-stochastic-matrices/pjm/1102992505.full).
 ///
@@ -113,7 +117,7 @@ ds_sol ds_expl_crit2(ds_problem);
 ///
 /// # Implementation
 /// The explicit variant of the Sinkhorn--Knopp-like algorithm, devised by
-/// J. Kruithof; see the paper [_Properties of Kruithof's Projection Method_]()
+/// J. Kruithof; see the paper [_Properties of Kruithof's Projection Method_](https://onlinelibrary.wiley.com/doi/abs/10.1002/j.1538-7305.1979.tb02231.x)
 /// by R. S. Krupp for details. The convergence properties in the doubly stochastic
 /// case were analyzed by R. Sinkhorn and P. Knopp in [_Concerning nonnegative matrices and doubly stochastic matrices_](https://projecteuclid.org/journals/pacific-journal-of-mathematics/volume-21/issue-2/Concerning-nonnegative-matrices-and-doubly-stochastic-matrices/pjm/1102992505.full).
 ///
