@@ -5,15 +5,32 @@ on:
     branches:
       - main
 
+# Configure GITHUB_TOKEN to allow deployment to GitHub Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 env:
   DOCS_OUT_PATH: c/build/html
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
+      - name: Set up GitHub Pages
+        uses: actions/configure-pages@v3
       - name: Install CMake, Ninja, Intel MKL and Doxygen
         run: |
           wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
@@ -30,10 +47,13 @@ jobs:
           ctest --test-dir build -V
       - name: Generate documentation
         working-directory: c
-        run: cmake --build build --parallel --target docs_diag_scals
-      - name: Ensure pages with underscores work
-        run: touch "$DOCS_OUT_PATH/.nojekyll"
-      - name: Deploy to GitHub
-        uses: JamesIves/github-pages-deploy-action@v4
+        run: |
+          cmake --build build --parallel --target docs_diag_scals
+          touch "$DOCS_OUT_PATH/.nojekyll" # Ensure pages with underscores work
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          folder: "$DOCS_OUT_PATH"
+          path: ${{ env.DOCS_OUT_PATH }}
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
