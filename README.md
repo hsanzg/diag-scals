@@ -31,13 +31,14 @@ for balancing symmetric, nonnegative matrices to the general diagonal scaling pr
 Let $X^{(k)}$ and $Y^{(k)}$ be respectively the approximations to the matrices
 $X$ and $Y$ at the $k$th step of an iterative diagonal scaling method.
 We can write $X^{(k + 1)} = \Gamma^{(k)} X^{(k)}$ and $Y^{(k + 1)} = \Delta^{(k)} Y^{(k)}$,
-where $\Gamma^{(k)}$ and $\Delta^{(k)}$ are diagonal matrices with positive main diagonal.
-Then an iterative process may stop whenever
+where $\Gamma^{(k)}$ and $\Delta^{(k)}$ are diagonal matrices with positive main diagonals.
+Then the iterative process may stop whenever
 
 1. the matrix $\Gamma^{(k)} \oplus \Delta^{(k)}$ is near the identity in the $l_\infty$ norm,
 2. the spectral condition number of $\Gamma^{(k)} \oplus \Delta^{(k)}$ is close to 1, or
 3. the maximum of the spectral condition numbers of $\Gamma^{(k)}$ and $\Delta^{(k)}$ is
    close to 1;
+
 or after a maximum number of iterations have been run.
 
 ## License
