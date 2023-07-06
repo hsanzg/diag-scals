@@ -43,13 +43,13 @@ jobs:
       - name: Test implementation
         working-directory: c
         run: |
-          cmake --build build
+          cmake --build build --parallel
           ctest --test-dir build -V
       - name: Generate documentation
         working-directory: c
         run: |
           cmake --build build --parallel --target docs_diag_scals
-          touch "$DOCS_OUT_PATH/.nojekyll" # Ensure pages with underscores work
+          touch "$DOCS_OUT_PATH/../.nojekyll" # Ensure pages with underscores work
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
