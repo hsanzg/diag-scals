@@ -6,4 +6,4 @@ target_compile_options(test_diag_scals PRIVATE -Wall -Wextra -Wno-deprecated -We
 
 target_link_libraries(test_diag_scals PRIVATE diag_scals)
 
-add_test(NAME test_diag_scals_test COMMAND test)
+add_test(NAME test_diag_scals_test COMMAND test_diag_scals)
