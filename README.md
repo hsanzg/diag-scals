@@ -3,10 +3,13 @@
 A diagonal scaling of a real matrix $A$ with nonnegative entries is a product of
 the form $XAY$, where $X$ and $Y$ are real diagonal matrices with positive entries on
 the main diagonal. This repository contains C and MATLAB routines for three algorithms
-to approximately compute diagonal scalings of a given nonnegative matrix that have
+that approximately compute diagonal scalings of a given nonnegative matrix with
 prescribed row and column sums.
 The iterative schemes work under different stopping criteria, with two of them
 being ideally suited to relaxed tolerances for the target row and column sums.
+
+This work is part of my [undergraduate thesis](https://hgsg.me/bachelor/) in [Applied Mathematics and Computing](https://www.uc3m.es/bachelor-degree/applied-mathematics-computing)
+of the [University Carlos III of Madrid](https://www.uc3m.es/Home).
 
 ## Methods
 
@@ -18,16 +21,19 @@ by R. S. Krupp for details. The convergence properties of the method in the doub
 case were analyzed by R. Sinkhorn and P. Knopp in [_Concerning nonnegative matrices and doubly stochastic matrices_](https://projecteuclid.org/journals/pacific-journal-of-mathematics/volume-21/issue-2/Concerning-nonnegative-matrices-and-doubly-stochastic-matrices/pjm/1102992505.full).
 
 ### The implicit Sinkhorn–Knopp-like method
+
 The implicit variant of the Sinkhorn–Knopp-like algorithm, proposed by
 B. Kalantari and L. Khachiyan in [_On the complexity of nonnegative-matrix scaling_](https://core.ac.uk/download/pdf/82614641.pdf).
 The main ideas of the scheme are summarized in the paper [_The Sinkhorn-Knopp algorithm: convergence and applications_](https://strathprints.strath.ac.uk/19685/1/skapp.pdf) by P. A. Knight.
 
 ### Newton's diagonal scaling method
+
 A generalization of Newton's method proposed by P. A. Knight and D. Ruiz in
 Section 2 of [_A fast algorithm for matrix balancing_](https://d-nb.info/991914708/34)
 for balancing symmetric, nonnegative matrices to the general diagonal scaling problem.
 
 ## Stopping criteria
+
 Let $X^{(k)}$ and $Y^{(k)}$ be respectively the approximations to the matrices
 $X$ and $Y$ at the $k$th step of an iterative diagonal scaling method.
 We can write $X^{(k + 1)} = \Gamma^{(k)} X^{(k)}$ and $Y^{(k + 1)} = \Delta^{(k)} Y^{(k)}$,
@@ -56,7 +62,7 @@ cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_BENCHMARKING=OFF -Bbuild
 cmake --build build --parallel ..
 ```
 
-The MATLAB scripts have been tested on version R2022b.
+The MATLAB scripts have been tested on version R2022b, and they support matrices stored in dense and sparse form.
 
 ## Examples
 
@@ -98,6 +104,8 @@ int main(void) {
 }
 ```
 
+See the [C library documentation](https://hsanzg.github.io/diagonal-scalings/) for details.
+
 The equivalent MATLAB program has the form
 ```matlab
 n = 100;
@@ -107,9 +115,6 @@ r = ones(n, 1); c = r;
 [P, x, y, residual, iters] = dsexplicit1(A, r, c, 10, 1e-4);
 P
 ```
-
-[Documentation](https://hsanzg.github.io/diagonal-scalings/).
-
 
 ## License
 
