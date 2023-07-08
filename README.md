@@ -66,8 +66,8 @@ The MATLAB scripts have been tested on version R2022b, and they support matrices
 
 ## Examples
 
-We can balance a $100 \times 100$ matrix of random floating point numbers in $[1, 10)$ using the C implementation
-of the explicit Sinkhorn–Knopp-like algorithm under the first stopping criterion as follows:
+We can approximately balance a $100 \times 100$ matrix of random floating point numbers in $[1, 10)$,
+using the C implementation of the explicit Sinkhorn–Knopp-like algorithm under the first stopping criterion:
 ```c
 #include <stdlib.h>
 #include <diag_scals/diag_scals.h>
