@@ -104,7 +104,7 @@ int main(void) {
 }
 ```
 
-See the [C library documentation](https://hsanzg.github.io/diagonal-scalings/) for details.
+See the [C library documentation](https://hsanzg.github.io/diag-scals/) for details.
 
 The equivalent MATLAB program has the form
 ```matlab
