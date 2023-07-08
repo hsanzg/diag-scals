@@ -2,7 +2,7 @@
 
 A diagonal scaling of a real matrix $A$ with nonnegative entries is a product of
 the form $XAY$, where $X$ and $Y$ are real diagonal matrices with positive entries on
-the main diagonal. This repository contains C and MATLAB programs for three algorithms
+the main diagonal. This repository contains C and MATLAB routines for three algorithms
 to approximately compute diagonal scalings of a given nonnegative matrix that have
 prescribed row and column sums.
 The iterative schemes work under different stopping criteria, with two of them
@@ -40,6 +40,76 @@ Then the iterative process may stop whenever
    close to 1;
 
 or after a maximum number of iterations have been run.
+
+## Usage
+
+You will need the following dependencies to build and use the C library:
+- A C11 compiler,
+- cmake >= 3,
+- Intel oneMKL >= 2021.1 (provides BLAS and LAPACK implementations),
+- An x86 processor with support for AVX2 extensions.
+
+```bash
+git clone git@github.com:hsanzg/diag-scals.git
+cd diag_scals/c
+cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_BENCHMARKING=OFF -Bbuild
+cmake --build build --parallel ..
+```
+
+The MATLAB scripts have been tested on version R2022b.
+
+## Examples
+
+We can balance a $100 \times 100$ matrix of random floating point numbers in $[1, 10)$ using the C implementation
+of the explicit Sinkhorn–Knopp-like algorithm under the first stopping criterion as follows:
+```c
+#include <stdlib.h>
+#include <diag_scals/diag_scals.h>
+
+int main(void) {
+    const size_t n = 100;
+    ds_problem pr;
+    ds_problem_init(&pr, n, n, /* max_iters */ 10, /* tol */ 1e-4);
+    for (size_t j = 0; j < n; ++j) {
+        for (size_t i = 0; i < n; ++i) {
+            // Store matrices in column-major order.
+            pr.a[n * j + i] = 1. + 9. * rand() / RAND_MAX;
+        }
+    }
+    for (size_t i = 0; i < n; ++i) pr.r[i] = 1.;
+    for (size_t j = 0; j < n; ++j) pr.c[j] = 1.;
+    
+    ds_sol sol = ds_expl_crit1(pr);
+    if (ds_sol_is_err(&sol)) return 1;
+    
+    // Print the approximate solution; here P = XAY.
+    for (size_t j = 0; j < n; ++j) {
+        for (size_t i = 0; i < n; ++i)
+            printf("%lf ", sol.p[n * j + i]);
+        printf("\n");
+    }
+    
+    ds_sol_free(&sol);
+    ds_problem_free(&pr);
+    
+    // Clean up the working area resources.
+    ds_work_area_free();
+    return 0;
+}
+```
+
+The equivalent MATLAB program has the form
+```matlab
+n = 100;
+A = 1 + 9 * rand(n);
+r = ones(n, 1); c = r;
+
+[P, x, y, residual, iters] = dsexplicit1(A, r, c, 10, 1e-4);
+P
+```
+
+[Documentation](https://hsanzg.github.io/diagonal-scalings/).
+
 
 ## License
 

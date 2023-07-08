@@ -336,4 +336,5 @@ int main(void) {
     test_expl_and_impl();
     test_newt();
     ds_work_area_free();
+    return 0;
 }
