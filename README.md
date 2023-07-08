@@ -57,7 +57,7 @@ You will need the following dependencies to build and use the C library:
 
 ```bash
 git clone git@github.com:hsanzg/diag-scals.git
-cd diag_scals/c
+cd diag-scals/c
 cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_BENCHMARKING=OFF -Bbuild
 cmake --build build --parallel
 ```
