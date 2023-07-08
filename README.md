@@ -59,7 +59,7 @@ You will need the following dependencies to build and use the C library:
 git clone git@github.com:hsanzg/diag-scals.git
 cd diag_scals/c
 cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_BENCHMARKING=OFF -Bbuild
-cmake --build build --parallel ..
+cmake --build build --parallel
 ```
 
 The MATLAB scripts have been tested on version R2022b, and they support matrices stored in dense and sparse form.
