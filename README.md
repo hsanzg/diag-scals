@@ -85,7 +85,7 @@ int main(void) {
     for (size_t i = 0; i < n; ++i) pr.r[i] = 1.;
     for (size_t j = 0; j < n; ++j) pr.c[j] = 1.;
     
-    ds_sol sol = ds_expl_crit1(pr);
+    ds_sol sol = ds_expl_crit1(pr); // clobbers pr.a
     if (ds_sol_is_err(&sol)) return 1;
     
     // Print the approximate solution; here P = XAY.
