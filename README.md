@@ -1,4 +1,4 @@
-# Diagonal scalings of nonnegative matrices with relaxed targets for the row and column sums
+# diag-scals
 
 A diagonal scaling of a real matrix $A$ with nonnegative entries is a product of
 the form $XAY$, where $X$ and $Y$ are real diagonal matrices with positive entries on
