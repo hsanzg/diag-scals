@@ -37,10 +37,12 @@ jobs:
           echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
           sudo apt-get update
       - name: Install CMake, Ninja, Intel MKL and Doxygen
-        uses: awalsh128/cache-apt-pkgs-action@v1
-        with:
-          packages: cmake intel-oneapi-mkl-devel doxygen graphviz
-          version: 1 # cache key
+        # todo: replace `run` by `uses` once https://github.com/awalsh128/cache-apt-pkgs-action/issues/108 is fixed.
+        run: sudo apt-get install -y cmake intel-oneapi-mkl-devel doxygen graphviz
+        #uses: awalsh128/cache-apt-pkgs-action@v1
+        #with:
+        #  packages: cmake intel-oneapi-mkl-devel doxygen graphviz
+        #  version: 1 # cache key
       - name: Create build system
         working-directory: c
         run: cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_BENCHMARKING=OFF -Bbuild
