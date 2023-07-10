@@ -116,12 +116,11 @@ ds_sol ds_newt_crit1(ds_problem pr) {
             cmp_res = _mm256_min_pd(cmp_res, zs);
         }
         DS_SOL_VERIFY(ds_mm256_rmin_pd(cmp_res) == DBL_MIN, sol);
-        for (; k < b_n; ++k)
-            DS_SOL_VERIFY(z[k] > 0., sol);
+        for (; k < b_n; ++k) DS_SOL_VERIFY(z[k] > 0., sol);
 
         // Compute the residual and evaluate the stopping criterion.
         // Optimization: the vectors x, y and x_prev, y_prev are contiguous,
-        // so we can compute the l_\infty norm in one go.
+        // so we can compute ||[x ./ x_prev; y ./ y_prev] - 1||_\infty in one go.
         __m256d ress = _mm256_setzero_pd(), ones = _mm256_set1_pd(1.);
         for (k = 0; k < DS_ROUND_DOWN_TO_VEC_LANE_COUNT(b_n); k += DS_VEC_LANE_COUNT) {
             __m256d prevs = _mm256_load_pd(&prev[k]);
@@ -233,8 +232,7 @@ ds_sol ds_newt_crit2(ds_problem pr) {
             cmp_res = _mm256_min_pd(cmp_res, zs);
         }
         DS_SOL_VERIFY(ds_mm256_rmin_pd(cmp_res) == DBL_MIN, sol);
-        for (; k < b_n; ++k)
-            DS_SOL_VERIFY(z[k] > 0., sol);
+        for (; k < b_n; ++k) DS_SOL_VERIFY(z[k] > 0., sol);
 
         // Compute the residual and evaluate the stopping criterion.
         // Optimization: the vectors x, y and x_prev, y_prev are contiguous,
@@ -360,8 +358,7 @@ ds_sol ds_newt_crit3(ds_problem pr) {
             cmp_res = _mm256_min_pd(cmp_res, zs);
         }
         DS_SOL_VERIFY(ds_mm256_rmin_pd(cmp_res) == DBL_MIN, sol);
-        for (; k < b_n; ++k)
-            DS_SOL_VERIFY(z[k] > 0., sol);
+        for (; k < b_n; ++k) DS_SOL_VERIFY(z[k] > 0., sol);
 
         // Compute the residual and evaluate the stopping criterion.
         __m256d x_max_mults = _mm256_setzero_pd(),
