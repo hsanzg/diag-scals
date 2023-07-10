@@ -4,6 +4,9 @@
 #include <diag_scals/common.h>
 
 
+// Solve the least squares problems using a QR or LQ factorization of B,
+// on the assumption that B has full rank `b_n = m + n`. If undefined,
+// solves the problems using a complete orthogonal factorization of B.
 #define DS_NEWT_SOLVE_QR
 
 // Similar to ds_sol_init, but guarantees that the vectors x and y
@@ -28,7 +31,7 @@ ds_sol ds_newt_crit1(ds_problem pr) {
     // The array z is overwritten to contain the solution [x; y] of the system
     // by the DGELS LAPACK routine. Thus, we cannot guarantee that the subarray
     // y starting at address &z[m] is a multiple of DS_VEC_BYTE_WIDTH. We can
-    // still treat the x and y arrays as two separate, unaliased ones, however.
+    // still treat x and y as two separate, unaliased arrays, however.
     ds_sol sol = ds_newt_sol_init(&pr);
     if (ds_sol_is_err(&sol)) return sol;
     double *__restrict z = __builtin_assume_aligned(sol.x, DS_VEC_BYTE_WIDTH);
@@ -148,10 +151,6 @@ ds_sol ds_newt_crit2(ds_problem pr) {
     ds_sol sol = ds_newt_sol_init(&pr);
     if (ds_sol_is_err(&sol)) return sol;
 
-    // The array z is overwritten to contain the solution [x; y] of the system
-    // by the DGELS LAPACK routine. Thus, we cannot guarantee that the subarray
-    // y starting at address &z[m] is a multiple of DS_VEC_BYTE_WIDTH. We can
-    // still treat the x and y arrays as two separate, unaliased ones, however.
     double *__restrict z = __builtin_assume_aligned(sol.x, DS_VEC_BYTE_WIDTH);
 
     // Request space to store the matrix B and the vectors x, y from the previous
@@ -276,12 +275,9 @@ ds_sol ds_newt_crit2(ds_problem pr) {
 }
 
 ds_sol ds_newt_crit3(ds_problem pr) {
-    // The array z is overwritten to contain the solution [x; y] of the system
-    // by the DGELS LAPACK routine. Thus, we cannot guarantee that the subarray
-    // y starting at address &z[m] is a multiple of DS_VEC_BYTE_WIDTH. We can
-    // still treat the x and y arrays as two separate, unaliased ones, however.
     ds_sol sol = ds_newt_sol_init(&pr);
     if (ds_sol_is_err(&sol)) return sol;
+
     double *__restrict z = __builtin_assume_aligned(sol.x, DS_VEC_BYTE_WIDTH);
 
     // Request space to store the matrix B and the vectors x, y from the previous

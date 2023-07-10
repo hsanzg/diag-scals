@@ -118,4 +118,4 @@ P
 
 ## License
 
-[MIT](LICENSE) &copy; [Hugo Sanz González](https://hsgs.me)
+[MIT](LICENSE) &copy; [Hugo Sanz González](https://hgsg.me)
