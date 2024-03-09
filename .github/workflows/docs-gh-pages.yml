@@ -41,6 +41,9 @@ jobs:
         with:
           packages: cmake intel-oneapi-mkl-devel doxygen graphviz
           version: 1 # cache key
+      - name: Setup Intel MKL environment
+        # todo: don't hardcode the MKL version
+        run: source /opt/intel/oneapi/mkl/2024.0/env/vars.sh intel64
       - name: Create build system
         working-directory: c
         run: cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_BENCHMARKING=OFF -Bbuild
