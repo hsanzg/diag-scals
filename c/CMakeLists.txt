@@ -17,7 +17,8 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 endif()
 
 # Provides BLAS and LAPACK implementations.
-find_package(MKL CONFIG REQUIRED)
+find_package(MKL CONFIG REQUIRED PATHS $ENV{MKLROOT})
+message(STATUS "Imported oneMKL targets: ${MKL_IMPORTED_TARGETS}")
 
 add_subdirectory(src)
 
