@@ -1,15 +1,17 @@
 # diag-scals
 
+[![C documentation](https://img.shields.io/badge/docs-passing-brightgreen)](https://hsanzg.github.io/diag-scals/)
+[![Build status](https://img.shields.io/github/actions/workflow/status/hsanzg/diag-scals/docs-gh-pages.yml)](https://github.com/hsanzg/diag-scals/actions/)
+
 A diagonal scaling of a real matrix $A$ with nonnegative entries is a product of
 the form $XAY$, where $X$ and $Y$ are real diagonal matrices with positive entries on
-the main diagonal. This repository contains C and MATLAB routines for three algorithms
+the main diagonal. This repository contains C and MATLAB subroutines for three algorithms
 that approximately compute diagonal scalings of a given nonnegative matrix with
 prescribed row and column sums.
 The iterative schemes work under different stopping criteria, with two of them
 being ideally suited to relaxed tolerances for the target row and column sums.
 
-This work is part of my [undergraduate thesis](https://hgsg.me/bachelor/) in [Applied Mathematics and Computing](https://www.uc3m.es/bachelor-degree/applied-mathematics-computing)
-of the [University Carlos III of Madrid](https://www.uc3m.es/Home).
+This work is part of my [undergraduate thesis](https://hgsg.me/bachelor/) in Applied Mathematics and Computing at the [University Carlos III of Madrid](https://www.uc3m.es/Home).
 
 ## Methods
 
@@ -28,9 +30,10 @@ The main ideas of the scheme are summarized in the paper [_The Sinkhorn-Knopp al
 
 ### Newton's diagonal scaling method
 
-A generalization of Newton's method proposed by P. A. Knight and D. Ruiz in
-Section 2 of [_A fast algorithm for matrix balancing_](https://d-nb.info/991914708/34)
-for balancing symmetric, nonnegative matrices to the general diagonal scaling problem.
+A novel extension of P. A. Knight and D. Ruiz's symmetric matrix balancing method
+proposed in Section 2 of [_A fast algorithm for matrix balancing_](https://d-nb.info/991914708/34)
+to the general diagonal scaling problem. See Section 4.2 of [my thesis](https://hgsg.me/bachelor/)
+for further information.
 
 ## Stopping criteria
 
@@ -38,7 +41,7 @@ Let $X^{(k)}$ and $Y^{(k)}$ be respectively the approximations to the matrices
 $X$ and $Y$ at the $k$th step of an iterative diagonal scaling method.
 We can write $X^{(k + 1)} = \Gamma^{(k)} X^{(k)}$ and $Y^{(k + 1)} = \Delta^{(k)} Y^{(k)}$,
 where $\Gamma^{(k)}$ and $\Delta^{(k)}$ are diagonal matrices with positive main diagonals.
-Then the iterative process may stop whenever
+This library provides implementations of the iterative processes listed above that stop whenever
 
 1. the matrix $\Gamma^{(k)} \oplus \Delta^{(k)}$ is near the identity in the $l_\infty$ norm,
 2. the spectral condition number of $\Gamma^{(k)} \oplus \Delta^{(k)}$ is close to 1, or
@@ -51,9 +54,9 @@ or after a maximum number of iterations have been run.
 
 You will need the following dependencies to build and use the C library:
 - A C11 compiler,
-- cmake >= 3,
-- Intel oneMKL >= 2021.1 (provides BLAS and LAPACK implementations),
-- An x86 processor with support for AVX2 extensions.
+- cmake ≥ 3,
+- Intel oneMKL ≥ 2021.1 (provides BLAS and LAPACK implementations),
+- An x86 processor with support for AVX2 instructions.
 
 ```bash
 git clone git@github.com:hsanzg/diag-scals.git
@@ -62,26 +65,24 @@ cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_BENCHMARKING=OFF -Bbuild
 cmake --build build --parallel
 ```
 
-The MATLAB scripts have been tested on version R2022b, and they support matrices stored in dense and sparse form.
+The MATLAB scripts have been tested on version R2022b, and they accept matrices stored in either dense and sparse form as input.
 
 ## Examples
 
-Approximately balance a $100 \times 100$ matrix of random floating point numbers in $[1, 10)$,
-using the C implementation of the explicit Sinkhorn–Knopp-like algorithm under the first stopping criterion:
+The following C test program uses the explicit Sinkhorn–Knopp-like algorithm under the first stopping criterion to approximately balance a $100 \times 100$ matrix of random floating point numbers in $[1, 10)$:
 ```c
 #include <stdlib.h>
+#include <stdio.h>
 #include <diag_scals/diag_scals.h>
 
 int main(void) {
     const size_t n = 100;
     ds_problem pr;
     ds_problem_init(&pr, n, n, /* max_iters */ 10, /* tol */ 1e-4);
-    for (size_t j = 0; j < n; ++j) {
-        for (size_t i = 0; i < n; ++i) {
+    for (size_t j = 0; j < n; ++j)
+        for (size_t i = 0; i < n; ++i)
             // Store matrices in column-major order.
             pr.a[n * j + i] = 1. + 9. * rand() / RAND_MAX;
-        }
-    }
     for (size_t i = 0; i < n; ++i) pr.r[i] = 1.;
     for (size_t j = 0; j < n; ++j) pr.c[j] = 1.;
     
@@ -92,7 +93,7 @@ int main(void) {
     for (size_t j = 0; j < n; ++j) {
         for (size_t i = 0; i < n; ++i)
             printf("%lf ", sol.p[n * j + i]);
-        printf("\n");
+        putchar('\n');
     }
     
     ds_sol_free(&sol);
@@ -104,9 +105,10 @@ int main(void) {
 }
 ```
 
-See the [C library documentation](https://hsanzg.github.io/diag-scals/) for details.
+The [C library documentation](https://hsanzg.github.io/diag-scals/) contains
+current information about all available subroutines and data structures.
 
-The equivalent MATLAB program has the form
+The corresponding MATLAB program is quite simple:
 ```matlab
 n = 100;
 A = 1 + 9 * rand(n);
