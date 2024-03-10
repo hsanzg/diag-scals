@@ -1,7 +1,7 @@
 # diag-scals
 
-[![C documentation](https://img.shields.io/badge/docs-passing-brightgreen)](https://hsanzg.github.io/diag-scals/)
 [![Build status](https://img.shields.io/github/actions/workflow/status/hsanzg/diag-scals/docs-gh-pages.yml)](https://github.com/hsanzg/diag-scals/actions/)
+[![C documentation](https://img.shields.io/badge/docs-passing-brightgreen)](https://hsanzg.github.io/diag-scals/)
 
 A diagonal scaling of a real matrix $A$ with nonnegative entries is a product of
 the form $XAY$, where $X$ and $Y$ are real diagonal matrices with positive entries on
@@ -65,7 +65,7 @@ cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_BENCHMARKING=OFF -Bbuild
 cmake --build build --parallel
 ```
 
-The MATLAB scripts have been tested on version R2022b, and they accept matrices stored in either dense and sparse form as input.
+The MATLAB scripts have been tested on version R2022b, and they accept matrices stored in either dense or sparse form as input.
 
 ## Examples
 

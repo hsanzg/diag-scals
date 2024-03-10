@@ -191,7 +191,7 @@ ds_sol ds_impl_crit3(ds_problem);
 /// # Implementation
 /// A novel extension of P. A. Knight and D. Ruiz's symmetric matrix balancing method
 /// proposed in Section 2 of [_A fast algorithm for matrix balancing_](https://d-nb.info/991914708/34)
-/// to the general diagonal scaling problem. See Section 4.2 of [my thesis](https://hgsg.me/bachelor/)
+/// to the general diagonal scaling problem. See Section 4.2 of H. Sanz González's [bachelor thesis](https://hgsg.me/bachelor/)
 /// for further information.
 ///
 /// **Warning:** The starting address of the solution vector `y` returned by
@@ -209,7 +209,7 @@ ds_sol ds_newt_crit1(ds_problem);
 /// # Implementation
 /// A novel extension of P. A. Knight and D. Ruiz's symmetric matrix balancing method
 /// proposed in Section 2 of [_A fast algorithm for matrix balancing_](https://d-nb.info/991914708/34)
-/// to the general diagonal scaling problem. See Section 4.2 of [my thesis](https://hgsg.me/bachelor/)
+/// to the general diagonal scaling problem. See Section 4.2 of H. Sanz González's [bachelor thesis](https://hgsg.me/bachelor/)
 /// for further information.
 ///
 /// **Warning:** The starting address of the solution vector `y` returned by
@@ -227,7 +227,7 @@ ds_sol ds_newt_crit2(ds_problem);
 /// # Implementation
 /// A novel extension of P. A. Knight and D. Ruiz's symmetric matrix balancing method
 /// proposed in Section 2 of [_A fast algorithm for matrix balancing_](https://d-nb.info/991914708/34)
-/// to the general diagonal scaling problem. See Section 4.2 of [my thesis](https://hgsg.me/bachelor/)
+/// to the general diagonal scaling problem. See Section 4.2 of H. Sanz González's [bachelor thesis](https://hgsg.me/bachelor/)
 /// for further information.
 ///
 /// **Warning:** The starting address of the solution vector `y` returned by
