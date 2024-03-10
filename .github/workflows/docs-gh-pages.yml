@@ -43,8 +43,9 @@ jobs:
           version: 1 # cache key
       - name: Setup Intel MKL environment
         run: |
+          env > env_before_mkl
           source /opt/intel/oneapi/setvars.sh intel64
-          env | grep '^MKL' >> "$GITHUB_ENV"
+          comm -13 <(sort < env_before_mkl) <(env | sort) >> "$GITHUB_ENV"
       - name: Create build system
         working-directory: c
         run: cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_BENCHMARKING=OFF -Bbuild
