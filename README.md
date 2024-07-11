@@ -25,13 +25,13 @@ case were analyzed by R. Sinkhorn and P. Knopp in [_Concerning nonnegative matri
 ### The implicit Sinkhorn–Knopp-like method
 
 The implicit variant of the Sinkhorn–Knopp-like algorithm, proposed by
-B. Kalantari and L. Khachiyan in [_On the complexity of nonnegative-matrix scaling_](https://core.ac.uk/download/pdf/82614641.pdf).
-The main ideas of the scheme are summarized in the paper [_The Sinkhorn-Knopp algorithm: convergence and applications_](https://strathprints.strath.ac.uk/19685/1/skapp.pdf) by P. A. Knight.
+B. Kalantari and L. Khachiyan in the paper [_On the complexity of nonnegative-matrix scaling_](https://core.ac.uk/download/pdf/82614641.pdf).
+The main ideas of the scheme are summarized in [_The Sinkhorn-Knopp algorithm: convergence and applications_](https://strathprints.strath.ac.uk/19685/1/skapp.pdf) by P. A. Knight.
 
 ### Newton's diagonal scaling method
 
 A novel extension of P. A. Knight and D. Ruiz's symmetric matrix balancing method
-proposed in Section 2 of [_A fast algorithm for matrix balancing_](https://d-nb.info/991914708/34)
+from Section 2 of [_A fast algorithm for matrix balancing_](https://d-nb.info/991914708/34)
 to the general diagonal scaling problem. See Section 4.2 of [my thesis](https://hgsg.me/bachelor/)
 for further information.
 
